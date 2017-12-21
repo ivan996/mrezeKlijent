@@ -154,7 +154,7 @@ public class GUIKontrolor {
 		}
 	}
 
-	public static boolean singin(String usernam, String pass) {
+	public static int singin(String usernam, String pass) {
 		try {
 			serverOutput.println("3");
 			serverOutput.println(usernam);
@@ -163,17 +163,17 @@ public class GUIKontrolor {
 			if (mes.equals("\\clientok")) {
 				username = usernam;
 				register = true;
-				return true;
+				return 1;
 			} else {
-				return false;
+				return 0;
 			}
 		} catch (IOException e) {
 			greska("Doslo je do greske na serveru!");
-			return false;
+			return -1;
 		}
 	}
 
-	public static boolean singup(String usernam, String pass) {
+	public static int singup(String usernam, String pass) {
 		try {
 			serverOutput.println("4");
 			serverOutput.println(usernam);
@@ -182,13 +182,13 @@ public class GUIKontrolor {
 			if (mes.equals("\\okusername")) {
 				username = usernam;
 				register = true;
-				return true;
+				return 1;
 			} else {
-				return false;
+				return 0;
 			}
 		} catch (IOException e) {
 			greska("Doslo je do greske na serveru!");
-			return false;
+			return -1;
 		}
 	}
 

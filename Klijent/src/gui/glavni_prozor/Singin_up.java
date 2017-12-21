@@ -155,12 +155,12 @@ public class Singin_up extends JFrame {
 		if(username.equals("") || username==null || pass.equals("") || pass==null){
 			GUIKontrolor.greska("Morate da unesete podatke!");
 		}else{
-			boolean provera = GUIKontrolor.singin(username, pass);
-			if(provera){
+			int provera = GUIKontrolor.singin(username, pass);
+			if(provera ==1){
 				GUIKontrolor.greska("Uspesno ste se ulogovali!");
 				GUIKontrolor.glavni.provare();
 				dispose();
-			}else{
+			}else if(provera==0){
 				GUIKontrolor.greska("Uneli ste pogresne podatke!");
 				textFieldUsername.setText("");
 				passwordField.setText("");
@@ -174,12 +174,12 @@ public class Singin_up extends JFrame {
 		if(username.equals("") || username==null || pass.equals("") || pass==null){
 			GUIKontrolor.greska("Morate da unesete podatke!");
 		}else{
-			boolean provera = GUIKontrolor.singup(username, pass);
-			if(provera){
+			int provera =  GUIKontrolor.singup(username, pass);
+			if(provera==1){
 				GUIKontrolor.greska("Uspesno ste se registrovali!");
 				GUIKontrolor.glavni.provare();
 				dispose();
-			}else{
+			}else if(provera==0){
 				GUIKontrolor.greska("Uneli ste postojece korisnicko ime!");
 				textFieldUsername.setText("");
 				passwordField.setText("");

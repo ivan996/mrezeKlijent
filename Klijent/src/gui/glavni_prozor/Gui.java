@@ -94,14 +94,15 @@ public class Gui extends JFrame {
 
 			public void update(DocumentEvent e) {
 				if (textArea.getText().length() > 500) {
-					GUIKontrolor.greska("Ne mozete uneti vise od 500 karaktera");
-					DocumentEvent.EventType type = e.getType();
-					String replace = textArea.getText();
-					replace = replace.substring(0, replace.length() - 1);
-					final String rep = replace;
+					
 
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
+							GUIKontrolor.greska("Ne mozete uneti vise od 500 karaktera");
+							DocumentEvent.EventType type = e.getType();
+							String replace = textArea.getText();
+							replace = replace.substring(0, 500);
+							final String rep = replace;
 							textArea.setText(rep);
 						}
 					});
@@ -393,7 +394,10 @@ public class Gui extends JFrame {
 
 	private void download() {
 		String key = textField.getText();
-
+		if(key==null || key.equals("")){
+			GUIKontrolor.greska("Morate uneti klljuc!");
+			return;
+		}
 		String putanja = sacuvajFile();
 		if (putanja == null || putanja.equals(""))
 			return;
