@@ -56,7 +56,6 @@ public class Gui extends JFrame {
 	private JLabel label;
 	private static JButton btnUpload;
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -115,7 +114,7 @@ public class Gui extends JFrame {
 	}
 
 	public static void provare() {
-		if(GUIKontrolor.register){
+		if (GUIKontrolor.register) {
 			mnClientname.setText(GUIKontrolor.username);
 			mnClientname.setVisible(true);
 			mnClient.setVisible(false);
@@ -123,7 +122,7 @@ public class Gui extends JFrame {
 			btnListFiles.setEnabled(true);
 			mntmList.setEnabled(true);
 			mntmUpload.setEnabled(true);
-		}else{
+		} else {
 			mnClientname.setVisible(false);
 			mnClient.setVisible(true);
 			btnUpload.setEnabled(false);
@@ -131,7 +130,7 @@ public class Gui extends JFrame {
 			mntmList.setEnabled(false);
 			mntmUpload.setEnabled(false);
 		}
-		
+
 	}
 
 	private JMenuBar getMenuBar_1() {
@@ -235,7 +234,7 @@ public class Gui extends JFrame {
 			mntmSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Singin_up.openFrame(1);
-					
+
 				}
 			});
 		}
@@ -249,7 +248,7 @@ public class Gui extends JFrame {
 			mntmSignOut.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Singin_up.openFrame(2);
-					
+
 				}
 			});
 		}
@@ -275,7 +274,7 @@ public class Gui extends JFrame {
 			btnDownload.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					download();
-					
+
 				}
 
 			});
@@ -387,40 +386,44 @@ public class Gui extends JFrame {
 		} else {
 			textArea_1.setText("Vasi fajlovi su:\n");
 			for (String string : lista) {
-				textArea_1.setText(textArea_1.getText()  + string + "\n");
+				textArea_1.setText(textArea_1.getText() + string + "\n");
 			}
 		}
 	}
 
 	private void download() {
 		String key = textField.getText();
-		
+
 		String putanja = sacuvajFile();
-		if(putanja==null || putanja.equals("")) return;
-		
-		
-		String message = GUIKontrolor.download(key,putanja);
-		if (message.equals("\\nokey") || message.equals("bad")) {
-			GUIKontrolor.greska("Niste uneli odgovarajuci key");
-			textField.setFocusable(true);
+		if (putanja == null || putanja.equals(""))
+			return;
+
+		String message = GUIKontrolor.download(key, putanja);
+		if (message == null) {
+			GUIKontrolor.greska("Doslo je do greske prilikom preuzimanja!");
 		} else {
-			textArea.setText(message);
+			if (message.equals("\\nokey") || message.equals("bad")) {
+				GUIKontrolor.greska("Niste uneli odgovarajuci key");
+				textField.setFocusable(true);
+			} else {
+				textArea.setText(message);
+			}
 		}
 
 	}
-	
-	private String sacuvajFile(){
+
+	private String sacuvajFile() {
 		String putanja;
 		JFileChooser jf = new JFileChooser();
 		int odgovor;
-		while(true){
+		while (true) {
 			odgovor = jf.showSaveDialog(this);
-			if(odgovor==JFileChooser.APPROVE_OPTION){
+			if (odgovor == JFileChooser.APPROVE_OPTION) {
 				putanja = jf.getSelectedFile().getPath();
-				if(!(putanja.equals("") && putanja==null)){
+				if (!(putanja.equals("") && putanja == null)) {
 					return putanja;
 				}
-			}else{
+			} else {
 				break;
 			}
 		}
@@ -428,7 +431,7 @@ public class Gui extends JFrame {
 	}
 
 	private void uploadText() {
-		String message = textArea.getText();		
+		String message = textArea.getText();
 		if (message == null || message.equals("")) {
 			GUIKontrolor.greska("Moreate uneti tekst u polje!");
 		} else {
@@ -440,11 +443,13 @@ public class Gui extends JFrame {
 			}
 		}
 	}
-	private void logout(){
-		GUIKontrolor.register=false;
-		GUIKontrolor.username=null;
+
+	private void logout() {
+		GUIKontrolor.register = false;
+		GUIKontrolor.username = null;
 		provare();
 	}
+
 	private JButton getBtnUpload() {
 		if (btnUpload == null) {
 			btnUpload = new JButton("Upload");
@@ -455,7 +460,7 @@ public class Gui extends JFrame {
 			});
 			btnUpload.setBounds(702, 239, 121, 44);
 			btnUpload.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			
+
 		}
 		return btnUpload;
 	}

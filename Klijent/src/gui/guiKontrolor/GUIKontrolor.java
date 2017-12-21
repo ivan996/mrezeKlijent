@@ -90,7 +90,7 @@ public class GUIKontrolor {
 	public static String download(String key, String putanja) {
 		try {
 			RandomAccessFile randomAccessFile = new RandomAccessFile(putanja, "rw");
-			int n;
+			int n,p;
 			byte[] bafer = new byte[1024];
 			serverOutput.println("1");
 			serverOutput.println(key);
@@ -101,24 +101,22 @@ public class GUIKontrolor {
 			if (mes.equals("\\nokey")) {
 				return "\\nokey";
 			} else {
-				while(true){
+				do{
 					n = fileInput.read(bafer);
-					if(n==-1){
+					if (n == -1) {
 						break;
 					}
-					randomAccessFile.write(bafer,0,n);
-				}
+					randomAccessFile.write(bafer, 0, n);
+				}while(fileInput.available()!=0);
 				randomAccessFile.close();
 				greska("File je uspesno sacuvan u file sistem!");
 				BufferedReader fileIn = new BufferedReader(new FileReader(putanja));
-				String mess=fileIn.readLine();
+				String mess = fileIn.readLine();
 				fileIn.close();
 				return mess;
-				
+
 			}
-			
-			
-			
+
 		} catch (IOException e) {
 			greska("Doslo je do greske na serveru!");
 			return null;
@@ -139,16 +137,16 @@ public class GUIKontrolor {
 	}
 
 	public static LinkedList<String> list(String username) {
-		String mes="";
+		String mes = "";
 		LinkedList<String> list = new LinkedList<>();
 		serverOutput.println("2");
-		
+
 		try {
-			mes=serverInput.readLine();
-			while (!mes.equals("\\endlist")){
+			mes = serverInput.readLine();
+			while (!mes.equals("\\endlist")) {
 				list.add(mes);
 				mes = serverInput.readLine();
-			} 
+			}
 			return list;
 		} catch (IOException e) {
 			greska("Doslo je do greske prilikom preuzimanja liste fajlova");
